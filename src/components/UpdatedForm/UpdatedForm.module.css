@@ -1,0 +1,58 @@
+
+.title{
+
+    color: rgb(60, 179, 113);
+    text-align: center;
+    font-size: 30px;
+    font-weight: 600;
+   }
+   
+   .label{
+       display: flex;
+       flex-direction: column;
+   }
+   .checkbox{
+       display: flex;
+       flex-direction: row;
+       margin-top: 50px;
+       gap: 20px;
+   }
+   
+   .name{
+       font-size: 20px;
+       font-family: 'Poppins' , sans-serif;
+       font-weight: 600;
+   }
+   .agree{
+       font-size: 15px;
+       font-weight: 400;
+   }
+   .input{
+       width: 280px;
+       height: 20px;
+       border: 1px solid #ccc;
+       padding: 10px;
+   }
+   .select{
+       width: 300px !important;
+       height: 50px !important;
+       border: 1px solid #ccc;
+       padding: 10px !important;
+   }
+   .form{
+       position : absolute;
+       left: 500px;
+   }
+   .submit{
+       width: 300px;
+       height: 70px;
+       background-color: rgb(60, 179, 113);
+       color: #fff;
+       border: none;
+       border-radius: 20px;
+       cursor: pointer;
+   }
+   .submit:hover{
+       background-color: rgb(130, 202, 163);
+       color: #fff;
+   }
