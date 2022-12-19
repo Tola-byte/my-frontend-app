@@ -15,21 +15,21 @@ const InputForm = () => {
   const [data, setData] = useState([])
     const HandleSubmission = (e) => {
         e.preventDefault();
+      const dataToBePosted =  {
+     // name : name,
+      sector: sector,
+      agree: agree,
+    };
+      
+        
+         axios.post("https://my-backend-code-production.up.railway.app/create-user", dataToBePosted)
+       .then(res => console.log(res))
+      .catch(err => console.log(err));
 
-       useEffect(() => {
-        const postData = async () => {
-          try{ 
-            const postedData = await axios.post("https://my-backend-code-production.up.railway.app/create-user", name , sector , agree);
-            setPost( postedData.data)
-        } catch (err) {
-          console.error(err.message);
-        }
+       navigate("/updatedForm")
+      
       }
-       postData();
-       } , [])
-    console.log( name , agree , sector );    
-        navigate("/updatedForm")
-      };
+    
       useEffect(() => {
         const fetchData = async () =>{
           setLoading(true);
@@ -43,7 +43,7 @@ const InputForm = () => {
         }
     
         fetchData();
-      } , [])
+      } , []);
   return (
     <div>
     <div className={styles.myForm}>
