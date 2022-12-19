@@ -1,23 +1,55 @@
-import React ,{useState} from 'react'
+import React ,{useState , useEffect} from 'react'
 import styles from "../InputForm/InputForm.module.css"
+import axios from 'axios'
 import {Link, useNavigate} from 'react-router-dom'
+
+
 const InputForm = () => {
     const navigate = useNavigate();
     const [ name , setName] = useState("");
     const [ agree , setAgree] = useState(false);
     const [ sector , setSector] = useState("");
-    const handleSubmission = (e) => {
+    const [ post , setPost] = useState("");
+
+    const [loading, setLoading] = useState(true);
+  const [data, setData] = useState([])
+    const HandleSubmission = (e) => {
         e.preventDefault();
+
+       useEffect(() => {
+        const postData = async () => {
+          try{ 
+            const postedData = await axios.post("https://my-backend-code-production.up.railway.app/create-user", name , sector , agree);
+            setPost( postedData.data)
+        } catch (err) {
+          console.error(err.message);
+        }
+      }
+       postData();
+       } , [])
     console.log( name , agree , sector );    
         navigate("/updatedForm")
       };
-
+      useEffect(() => {
+        const fetchData = async () =>{
+          setLoading(true);
+          try {
+            const {data: response} = await axios.get('https://my-backend-code-production.up.railway.app/sectors');
+            setData(response.data);
+          } catch (error) {
+            console.error(error.message);
+          }
+          setLoading(false);
+        }
+    
+        fetchData();
+      } , [])
   return (
     <div>
     <div className={styles.myForm}>
     <h3 className={styles.title}> My Form </h3>
 
-    <form  onSubmit = {handleSubmission} className={styles.form}>
+    <form  onSubmit = {HandleSubmission} className={styles.form}>
     <label className={styles.label}>
     <p className={styles.name}>Name</p>
     <input className = {styles.input} value = {name} type="text" name="" id="" onChange = {(e)=>setName(e.target.value)}/>
@@ -26,8 +58,12 @@ const InputForm = () => {
     <label className={styles.label}>
     <p className={styles.name}>Sectors</p>
     <select className = {styles.select}  name="sectors" id="sector" value={sector}  onChange = {(e)=>setSector(e.target.value)}>
-    <option>Agriculture</option>
-    <option>Agricule</option>
+    {data.map((item) => {
+      return  <option> {
+        item.name
+      }</option>
+    })}
+    
     </select>
     </label>
 
