@@ -4,7 +4,7 @@ const UpdatedForm = () => {
   return (
     <div>
     <div className={styles.myForm}>
-    <h3 className={styles.title}> My Form </h3>
+    <h3 className={styles.title}> Edit My Form </h3>
 
     <form className={styles.form}>
     <label className={styles.label}>

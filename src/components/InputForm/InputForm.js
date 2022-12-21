@@ -16,14 +16,14 @@ const InputForm = () => {
     const HandleSubmission = (e) => {
         e.preventDefault();
       const dataToBePosted =  {
-     // name : name,
+      name : name,
       sector: sector,
       agree: agree,
     };
       
         
          axios.post("https://my-backend-code-production.up.railway.app/create-user", dataToBePosted)
-       .then(res => console.log(res))
+       .then(res => console.log(res.data.newUser._id))
       .catch(err => console.log(err));
 
        navigate("/updatedForm")
@@ -52,23 +52,24 @@ const InputForm = () => {
     <form  onSubmit = {HandleSubmission} className={styles.form}>
     <label className={styles.label}>
     <p className={styles.name}>Name</p>
-    <input className = {styles.input} value = {name} type="text" name="" id="" onChange = {(e)=>setName(e.target.value)}/>
+    <input className = {styles.input} value = {name} type="text" name="" id="" onChange = {(e)=>setName(e.target.value)} required/>
     </label>
 
     <label className={styles.label}>
     <p className={styles.name}>Sectors</p>
-    <select className = {styles.select}  name="sectors" id="sector" value={sector}  onChange = {(e)=>setSector(e.target.value)}>
+    <select className = {styles.select}  name="sectors" id="sector" value={sector}  onChange = {(e)=>setSector(e.target.value)} required>
     {data.map((item) => {
       return  <option> {
         item.name
       }</option>
     })}
     
+    
     </select>
     </label>
 
     <label className={styles.checkbox}>
-    <input type="checkbox" value = {agree} onChange = {(e) => setAgree(!agree)} />
+    <input type="checkbox" value = {agree} onChange = {(e) => setAgree(!agree)} required />
     <p  className={styles.agree}>Agree to Terms and Conditions</p>
   </label>
 
