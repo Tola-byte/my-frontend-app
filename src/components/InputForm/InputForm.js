@@ -36,9 +36,7 @@ const InputForm = () => {
       name : name,
       sector: sector,
       agreement: agree,
-    };
-      console.log(dataToBePosted)
-        
+    };  
          axios.post("https://my-backend-code-production.up.railway.app/create-user", dataToBePosted)
        .then(res => {
         dispatch({
@@ -48,18 +46,10 @@ const InputForm = () => {
             name: res.data.newUser.name
           }
         })
-        console.log(res.data)
-        console.log(dataToBePosted)
         navigate("/updatedForm")
        })
       .catch(err => console.log(err));
-
-      
-      
       }
-    
-
-      console.log(data);
   return (
     <div>
     <div className={styles.myForm}>

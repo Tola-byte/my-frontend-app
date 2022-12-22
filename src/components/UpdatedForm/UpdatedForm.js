@@ -41,16 +41,9 @@ const UpdatedForm = () => {
 
      axios.post("https://my-backend-code-production.up.railway.app/update-user", dataToBePosted)
    .then(res => {
-    console.log(res.data)
-    
-    console.log(dataToBePosted)
    })
   .catch(err => console.log(err));
-
-  
-  
   }
-  console.log(data?.name)
   return (
     <div>
     <div className={styles.myForm}>
