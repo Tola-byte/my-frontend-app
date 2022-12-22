@@ -40,8 +40,11 @@
        padding: 10px !important;
    }
    .form{
-       position : absolute;
-       left: 500px;
+      margin: auto !important;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
    }
    .submit{
        width: 300px;
@@ -51,8 +54,10 @@
        border: none;
        border-radius: 20px;
        cursor: pointer;
+       margin-bottom: 40px;
    }
    .submit:hover{
        background-color: rgb(130, 202, 163);
        color: #fff;
    }
+   

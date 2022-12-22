@@ -1,49 +1,64 @@
 import React ,{useState , useEffect} from 'react'
-import styles from "../InputForm/InputForm.module.css"
 import axios from 'axios'
 import {Link, useNavigate} from 'react-router-dom'
+import { useId } from '../../Contexts/FormContext'
+import styles from "../InputForm/InputForm.module.css"
 
 
 const InputForm = () => {
+    const  [, dispatch] = useId();
     const navigate = useNavigate();
     const [ name , setName] = useState("");
     const [ agree , setAgree] = useState(false);
     const [ sector , setSector] = useState("");
-    const [ post , setPost] = useState("");
 
     const [loading, setLoading] = useState(true);
   const [data, setData] = useState([])
+
+  useEffect(() => {
+    const fetchData = async () =>{
+      setLoading(true);
+      try {
+        const {data: response} = await axios.get('https://my-backend-code-production.up.railway.app/sectors');
+        setData(response.data);
+      } catch (error) {
+        console.error(error.message);
+      }
+      setLoading(false);
+    }
+
+    fetchData();
+  } , []);
+
     const HandleSubmission = (e) => {
         e.preventDefault();
       const dataToBePosted =  {
       name : name,
       sector: sector,
-      agree: agree,
+      agreement: agree,
     };
-      
+      console.log(dataToBePosted)
         
          axios.post("https://my-backend-code-production.up.railway.app/create-user", dataToBePosted)
-       .then(res => console.log(res.data.newUser._id))
+       .then(res => {
+        dispatch({
+          type: "ADD_USER_ID",
+          payload: {
+            _id: res.data.newUser._id
+          }
+        })
+        console.log(res.data)
+        console.log(dataToBePosted)
+        navigate("/updatedForm")
+       })
       .catch(err => console.log(err));
 
-       navigate("/updatedForm")
+      
       
       }
     
-      useEffect(() => {
-        const fetchData = async () =>{
-          setLoading(true);
-          try {
-            const {data: response} = await axios.get('https://my-backend-code-production.up.railway.app/sectors');
-            setData(response.data);
-          } catch (error) {
-            console.error(error.message);
-          }
-          setLoading(false);
-        }
-    
-        fetchData();
-      } , []);
+
+      console.log(data);
   return (
     <div>
     <div className={styles.myForm}>
@@ -57,11 +72,10 @@ const InputForm = () => {
 
     <label className={styles.label}>
     <p className={styles.name}>Sectors</p>
-    <select className = {styles.select}  name="sectors" id="sector" value={sector}  onChange = {(e)=>setSector(e.target.value)} required>
-    {data.map((item) => {
-      return  <option> {
-        item.name
-      }</option>
+    <select className = {styles.select}  name="sector" id = "sector" onChange = {(e)=>setSector(e.target.value)} required>
+    <option value="" disabled> </option>
+    {data.map((item , id) => {
+      return <option value={item._id}> {item.name}</option>
     })}
     
     
