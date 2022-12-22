@@ -4,7 +4,7 @@ import axios from 'axios'
 import styles from "../UpdatedForm/UpdatedForm.module.css"
 
 const UpdatedForm = () => {
-  const [state ] = useId()
+  const [state] = useId()
   
   const [ agree , setAgree] = useState(true);
   const [ sector , setSector] = useState("");
@@ -28,8 +28,8 @@ const UpdatedForm = () => {
     }
     fetchData()
   } , [state.id]);
-
-  const [ name , setName] = useState(`${data?.name}`);
+  console.log(state)
+  const [ name , setName] = useState(state.names);
   const HandleSubmission = (e) => {
     e.preventDefault();
   const dataToBePosted =  {
@@ -38,17 +38,11 @@ const UpdatedForm = () => {
   sector: sector,
   agreement: agree,
 };
-  console.log(dataToBePosted)
-    
+
      axios.post("https://my-backend-code-production.up.railway.app/update-user", dataToBePosted)
    .then(res => {
-    // dispatch({
-    //   type: "ADD_USER_ID",
-    //   payload: {
-    //     _id: res.data.newUser._id
-    //   }
-    // })
     console.log(res.data)
+    
     console.log(dataToBePosted)
    })
   .catch(err => console.log(err));
@@ -56,9 +50,7 @@ const UpdatedForm = () => {
   
   
   }
-  
   console.log(data?.name)
-  
   return (
     <div>
     <div className={styles.myForm}>
@@ -68,7 +60,7 @@ const UpdatedForm = () => {
 
     <label className={styles.label}>
     <p className={styles.name}>UserID</p>
-    <input className = {styles.input} type="text" name="" id="" value={state.id}/>
+    <input className = {styles.input} type="text" name="" id="" value={state.id} readOnly/>
    
     </label>
 

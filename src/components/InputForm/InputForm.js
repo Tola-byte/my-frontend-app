@@ -44,7 +44,8 @@ const InputForm = () => {
         dispatch({
           type: "ADD_USER_ID",
           payload: {
-            _id: res.data.newUser._id
+            _id: res.data.newUser._id,
+            name: res.data.newUser.name
           }
         })
         console.log(res.data)

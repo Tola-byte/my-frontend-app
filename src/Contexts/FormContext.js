@@ -9,7 +9,7 @@ const reducer = (state= initialState, action) => {
     switch(action.type) {
 
         case "ADD_USER_ID":
-            return  { ...state, id: action.payload._id }
+            return  { ...state, id: action.payload._id , names: action.payload.name}
 
         default:
             return state;
