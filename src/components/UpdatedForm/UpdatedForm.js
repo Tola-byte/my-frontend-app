@@ -12,13 +12,13 @@ const UpdatedForm = () => {
   const [loading , setLoading ] = useState(true)
 
   
-
+  
 
   useEffect(() => {
     const fetchData = async () =>{
       setLoading(true);
       try {
-        const {data: response} = await axios.get(`https://my-backend-code-production.up.railway.app/user?userID=${state.id}`);
+        const {data: response} = await axios.get(`localhost:8000/user?userID=${state.id}`);
         setData(response);
 
       } catch (error) {
@@ -39,7 +39,7 @@ const UpdatedForm = () => {
   agreement: agree,
 };
 
-     axios.post("https://my-backend-code-production.up.railway.app/update-user", dataToBePosted)
+     axios.post("http//localhost:8000/update-user", dataToBePosted)
    .then(res => {
    })
   .catch(err => console.log(err));

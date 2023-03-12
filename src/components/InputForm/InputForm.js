@@ -19,8 +19,9 @@ const InputForm = () => {
     const fetchData = async () =>{
       setLoading(true);
       try {
-        const {data: response} = await axios.get('https://my-backend-code-production.up.railway.app/sectors');
+        const {data: response} = await axios.get(`http://localhost:8080/sectors`);
         setData(response.data);
+        console.log(data)
       } catch (error) {
         console.error(error.message);
       }
@@ -37,7 +38,7 @@ const InputForm = () => {
       sector: sector,
       agreement: agree,
     };  
-         axios.post("https://my-backend-code-production.up.railway.app/create-user", dataToBePosted)
+         axios.post("http://localhost:8080/create-user", dataToBePosted)
        .then(res => {
         dispatch({
           type: "ADD_USER_ID",
