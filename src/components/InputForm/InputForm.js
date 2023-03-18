@@ -15,11 +15,13 @@ const InputForm = () => {
     const [loading, setLoading] = useState(true);
   const [data, setData] = useState([])
 
+  const backend = process.env.REACT_APP_BACKEND_URL
+  console.log(backend);
   useEffect(() => {
     const fetchData = async () =>{
       setLoading(true);
       try {
-        const {data: response} = await axios.get(`http://localhost:8080/sectors`);
+        const {data: response} = await axios.get(`${backend}/sectors`);
         setData(response.data);
         console.log(data)
       } catch (error) {
@@ -38,7 +40,7 @@ const InputForm = () => {
       sector: sector,
       agreement: agree,
     };  
-         axios.post("http://localhost:8080/create-user", dataToBePosted)
+         axios.post(`${backend}/create-user`, dataToBePosted)
        .then(res => {
         dispatch({
           type: "ADD_USER_ID",

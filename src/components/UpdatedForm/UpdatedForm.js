@@ -10,7 +10,7 @@ const UpdatedForm = () => {
   const [ sector , setSector] = useState("");
   const [ data , setData ] = useState([])
   const [loading , setLoading ] = useState(true)
-
+  const backend = process.env.REACT_APP_BACKEND_URL;
   
   
 
@@ -18,7 +18,7 @@ const UpdatedForm = () => {
     const fetchData = async () =>{
       setLoading(true);
       try {
-        const {data: response} = await axios.get(`localhost:8000/user?userID=${state.id}`);
+        const {data: response} = await axios.get(`${backend}/user?userID=${state.id}`);
         setData(response);
 
       } catch (error) {
@@ -39,7 +39,7 @@ const UpdatedForm = () => {
   agreement: agree,
 };
 
-     axios.post("http//localhost:8000/update-user", dataToBePosted)
+     axios.post(`${backend}/update-user`, dataToBePosted)
    .then(res => {
    })
   .catch(err => console.log(err));
